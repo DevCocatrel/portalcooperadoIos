@@ -1,0 +1,23 @@
+workflows:
+  ios-build:
+    name: iOS Build
+    max_build_duration: 60
+    instance_type: mac_mini_m1
+    environment:
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+    scripts:
+      - name: Instalar dependências Flutter
+        script: |
+          flutter pub get
+      - name: Instalar dependências CocoaPods
+        script: |
+          cd ios
+          pod install
+      - name: Build do IPA
+        script: |
+          # O parâmetro --export-method permite escolher entre 'app-store', 'development', etc.
+          flutter build ipa --release --export-method=app-store
+    artifacts:
+      - build/ios/ipa/*.ipa

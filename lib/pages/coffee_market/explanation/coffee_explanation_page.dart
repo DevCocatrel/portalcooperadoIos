@@ -101,10 +101,6 @@ class _CoffeeExplanationPageState extends State<CoffeeExplanationPage> {
                         label: "Baixa",
                         value: "-10,00",
                       ),
-                      _Value(
-                        label: "Safra 2026/2027",
-                        value: "-100,00",
-                      ),
                     ],
                   ),
                   const SizedBox(height: 8),

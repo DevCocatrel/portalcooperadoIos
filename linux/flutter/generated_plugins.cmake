@@ -5,6 +5,7 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   file_saver
   open_file_linux
+  printing
   url_launcher_linux
 )
 

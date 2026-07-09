@@ -49,11 +49,11 @@ class _CoffeeExplanationPageState extends State<CoffeeExplanationPage> {
                     items: [
                       _Value(
                         label: "Menor que 10%, a cada 1%",
-                        value: "5",
+                        value: "6",
                       ),
                       _Value(
                         label: "Maior que 10%, a cada 1%",
-                        value: "-5",
+                        value: "-6",
                       ),
                     ],
                   ),
@@ -68,7 +68,7 @@ class _CoffeeExplanationPageState extends State<CoffeeExplanationPage> {
                     items: [
                       _Value(
                         label: "Acima de 12,5%",
-                        value: "-10,00",
+                        value: "-20,00",
                       ),
                     ],
                   ),

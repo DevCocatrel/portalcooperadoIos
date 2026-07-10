@@ -174,7 +174,7 @@ class CoffeeSubtitlePage extends StatelessWidget {
             const SizedBox(width: 8),
             Expanded(
               child: Text(
-                "Cafes certificados: RFA - Premio: 30,00",
+                "Cafes certificados: RFA - Premio: 20,00",
                 style: GoogleFonts.montserrat(
                   fontSize: 12,
                   fontWeight: FontWeight.w400,

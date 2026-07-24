@@ -8,4 +8,6 @@ class AppConfig {
 
   static const coffeePatternsLink =
       'https://portal.cocatrel.com.br/mc/cocatrel_padrao_cafe.pdf';
+  static const invoiceOrientatioLink =
+      'https://portal.cocatrel.com.br/mc/Instrucao_para_emissao_de_NF_Cooperado_PJ.pdf';
 }

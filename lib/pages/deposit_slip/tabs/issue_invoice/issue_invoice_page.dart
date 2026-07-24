@@ -16,6 +16,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'package:skeletonizer/skeletonizer.dart';
+import 'package:cocatrel/core/app/app_config.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class IssueInvoiceTab extends StatelessWidget {
   IssueInvoiceTab(this.onIssueInvoice, {super.key});
@@ -98,6 +100,31 @@ class IssueInvoiceTab extends StatelessWidget {
                   contentText:
                       '''Seu cadastro está identificado como Pessoa Jurídica (PJ).
 A emissão de Nota Fiscal de Entrada de Café está disponível apenas para Pessoas Físicas''',
+
+                  // Adicionando os botões de ação (exemplo comum em widgets customizados)
+                  actions: [
+                    // Botão Voltar
+                    TextButton(
+                      onPressed: () => Navigator.of(context).pop(),
+                      child: const Text('Voltar'),
+                    ),
+
+                    // Botão Orientações
+                    ElevatedButton(
+                      onPressed: () async {
+                        final Uri url =
+                            Uri.parse(AppConfig.invoiceOrientatioLink);
+                        try {
+                          // Tenta abrir diretamente no modo externo
+                          await launchUrl(url,
+                              mode: LaunchMode.externalApplication);
+                        } catch (e) {
+                          print('Erro ao tentar abrir o link: $e');
+                        }
+                      },
+                      child: const Text('Orientações'),
+                    ),
+                  ],
                 );
                 return;
               }

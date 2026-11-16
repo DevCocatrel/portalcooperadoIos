@@ -9,6 +9,11 @@ import 'package:internet_connection_checker_plus/internet_connection_checker_plu
 
 class App {
   static const bolsaApiUrl = 'https://api-portal.cocatrel.com.br/api/v1';
+
+  // Nova URL e cliente para a API de produção / solicitação de usuário
+
+  static const prdApiUrl = 'https://api-prd.cocatrel.com.br/';
+
   static final client = Dio(
     BaseOptions(
       baseUrl: 'https://api-portal.cocatrel.com.br/v1',
@@ -36,6 +41,14 @@ class App {
         handler.next(error);
       }),
     );
+
+  // Novo cliente Dio dedicado para a API de usuário
+  static final userClient = Dio(
+    BaseOptions(
+      baseUrl: prdApiUrl,
+      contentType: Headers.jsonContentType,
+    ),
+  );
 
   static MyRouteObserver routeObserver = MyRouteObserver();
 

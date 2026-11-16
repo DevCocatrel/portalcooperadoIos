@@ -477,7 +477,7 @@ class SaleConfirmationSection extends StatelessWidget {
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  "Estou ciente que apenas o adiantamento feito até às 14:00hs será depositado no mesmo dia; e Concordo com a cobrança de encargos de 1,95% ao mês incidentes sobre o valor do adiantamento.",
+                  "Estou ciente que apenas o adiantamento feito até às 14:00hs será depositado no mesmo dia; e Concordo com a cobrança de encargos de 2,05% ao mês incidentes sobre o valor do adiantamento.",
                   style: GoogleFonts.montserrat(
                     fontSize: 12,
                     fontWeight: FontWeight.w400,

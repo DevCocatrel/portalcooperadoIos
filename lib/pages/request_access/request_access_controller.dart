@@ -1,4 +1,5 @@
-import 'package:cocatrel/core/utils/launch_whatsapp.dart';
+import 'package:dio/dio.dart';
+import 'package:cocatrel/core/app/app.dart';
 import 'package:flutter/material.dart';
 
 class RequestAccessController extends ChangeNotifier {
@@ -33,17 +34,62 @@ class RequestAccessController extends ChangeNotifier {
     return null;
   }
 
-  void requestAccess(BuildContext context) {
+  Future<void> requestAccess(BuildContext context) async {
     if (formKey.currentState!.validate()) {
-      launchWhatsApp(context,
-          content:
-              '''Gostaria de solicitar o meu acesso ao App Cocatrel. Seguem as informações necessárias:
+      try {
+        // Exibe um indicador de carregamento
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (context) => const Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
 
-Nome Completo: ${nameTextController.text}
-Matrícula: ${registrationTextController.text}
-CPF: ${documentNumberTextController.text}
-Data de Nascimento: $dateFormatted
-''');
+        // Chamada à nova API usando o userClient da classe App
+        final response = await App.userClient.post(
+          '/api/cocatrel/autenticacao/usuario/resetarsenhaportal', // Ajuste para o endpoint correto
+          data: {
+            'matricula': registrationTextController.text,
+            'cpf': documentNumberTextController.text,
+            'nome': nameTextController.text,
+            'dataNascimento': dateFormatted,
+          },
+        );
+
+        // Fecha o dialog de carregamento
+        Navigator.pop(context);
+
+        if (response.statusCode == 200 || response.statusCode == 201) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text(
+                  'Solicitação enviada com sucesso! Foi encaminhado um e-mail com instruções para acesso.'),
+              backgroundColor: Colors.green,
+            ),
+          );
+        }
+      } catch (e) {
+  // Fecha o dialog de carregamento caso ocorra erro
+  Navigator.pop(context);
+
+  String errorMessage = e.toString();
+
+  // Se for um erro do Dio, extraímos a resposta detalhada do servidor se houver
+  if (e is DioException && e.response?.data != null) {
+    errorMessage = 'Erro ${e.response?.statusCode}: ${e.response?.data}';
+  }
+
+  ScaffoldMessenger.of(context).showSnackBar(
+    SnackBar(
+      content: Text('Erro ao solicitar acesso: $errorMessage'),
+      backgroundColor: Colors.red,
+      duration: const Duration(seconds: 5), // Dá tempo de ler o erro completo
+    ),
+  );
+}
+    } else {
+      print('--> Validação do formulário falhou!');
     }
   }
 }

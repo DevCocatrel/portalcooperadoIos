@@ -1,15 +1,15 @@
 import 'package:cocatrel/common/widgets/appbar/login_app_bar.dart';
 import 'package:cocatrel/common/widgets/button_loading/button_loading_widget.dart';
-import 'package:cocatrel/common/widgets/dialog/default_dialog.dart';
+// import 'package:cocatrel/common/widgets/dialog/default_dialog.dart';
 import 'package:cocatrel/common/widgets/divider/divider_widget.dart';
 import 'package:cocatrel/core/app/app_assets.dart';
 import 'package:cocatrel/core/app/app_colors.dart';
 import 'package:cocatrel/core/app/app_routes.dart';
 import 'package:cocatrel/core/styles/app_fonts.dart';
-import 'package:cocatrel/core/utils/launch_whatsapp.dart';
+// import 'package:cocatrel/core/utils/launch_whatsapp.dart';
 import 'package:cocatrel/core/utils/validators.dart';
 import 'package:cocatrel/pages/login/login_controller.dart';
-import 'package:flutter/gestures.dart';
+// import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -87,51 +87,51 @@ class LoginPage extends StatelessWidget {
                     RichText(
                       text: TextSpan(
                         style: AppFonts.text,
-                        children: [
-                          const TextSpan(text: 'Esqueceu a sua senha? '),
-                          TextSpan(
-                            text: 'Recupere aqui',
-                            style: const TextStyle(
-                              color: AppColors.primaryColor,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            recognizer: TapGestureRecognizer()
-                              ..onTap = () {
-                                showDefaultDialog(
-                                  context,
-                                  title: 'Recuperar senha',
-                                  contentText:
-                                      'Você será redirecionado para o WhatsApp da nossa central de atendimento e um de nossos agentes irá seguir com a recuperação da sua senha.',
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: const Text('Fechar'),
-                                    ),
-                                    ElevatedButton(
-                                      onPressed: () async {
-                                        await launchWhatsApp(context,
-                                            content:
-                                                'Olá, desejo solicitar a troca da minha senha');
-                                        if (context.mounted) {
-                                          Navigator.pop(context);
-                                        }
-                                      },
-                                      child: const Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text('Atendimento'),
-                                          SizedBox(width: 8),
-                                          Icon(Icons.headset_mic)
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                );
-                              },
-                          ),
-                        ],
+                        // children: [
+                        //   const TextSpan(text: 'Esqueceu a sua senha? '),
+                        //   TextSpan(
+                        //     text: 'Recupere aqui',
+                        //     style: const TextStyle(
+                        //       color: AppColors.primaryColor,
+                        //       fontWeight: FontWeight.w600,
+                        //     ),
+                        //     recognizer: TapGestureRecognizer()
+                        //       ..onTap = () {
+                        //         showDefaultDialog(
+                        //           context,
+                        //           title: 'Recuperar senha',
+                        //           contentText:
+                        //               'Você será redirecionado para o WhatsApp da nossa central de atendimento e um de nossos agentes irá seguir com a recuperação da sua senha.',
+                        //           actions: [
+                        //             TextButton(
+                        //               onPressed: () {
+                        //                 Navigator.pop(context);
+                        //               },
+                        //               child: const Text('Fechar'),
+                        //             ),
+                        //             ElevatedButton(
+                        //               onPressed: () async {
+                        //                 await launchWhatsApp(context,
+                        //                     content:
+                        //                         'Olá, desejo solicitar a troca da minha senha');
+                        //                 if (context.mounted) {
+                        //                   Navigator.pop(context);
+                        //                 }
+                        //               },
+                        //               child: const Row(
+                        //                 mainAxisSize: MainAxisSize.min,
+                        //                 children: [
+                        //                   Text('Atendimento'),
+                        //                   SizedBox(width: 8),
+                        //                   Icon(Icons.headset_mic)
+                        //                 ],
+                        //               ),
+                        //             )
+                        //           ],
+                        //         );
+                        //       },
+                        //   ),
+                        // ],
                       ),
                     ),
                     const SizedBox(height: 16),
@@ -180,7 +180,7 @@ class LoginPage extends StatelessWidget {
                       child: const Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text('Solicitar acesso'),
+                          Text('Solicitar acesso / redefinir senha'),
                           SizedBox(width: 8),
                           Icon(
                             Icons.arrow_forward_rounded,

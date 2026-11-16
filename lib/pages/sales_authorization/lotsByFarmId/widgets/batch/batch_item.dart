@@ -108,14 +108,19 @@ class _BatchItemState extends State<BatchItem> {
               value: batch.beanClassification.trim(),
               hasDivider: true,
             ),
-            _textItem(
-              label: "% Seca",
-              value: batch.dryClassification,
-              hasDivider: true,
-            ),
+            // _textItem(
+            //   label: "% Seca",
+            //   value: batch.dryClassification,
+            //   hasDivider: true,
+            // ),
             _textItem(
               label: "Pr. Unitario Liquido",
               value: Currency.format(batch.netUnitPrice),
+              hasDivider: true,
+            ),
+            _textItem(
+              label: "Sacas disponíveis",
+              value: batch.availableBags.toString(),
               hasDivider: true,
             ),
             ExpansionTile(

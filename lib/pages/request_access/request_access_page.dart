@@ -118,7 +118,7 @@ class RequestAccessPage extends StatelessWidget {
                       Expanded(
                         child: RichText(
                           text: TextSpan(
-                            text: 'Declaro que lí e concordo com os ',
+                            text: 'Declaro que li e concordo com os ',
                             style: AppFonts.text.copyWith(
                               fontSize: 14,
                               color: AppColors.textColor,
@@ -173,11 +173,10 @@ class RequestAccessPage extends StatelessWidget {
                   Consumer<RequestAccessController>(
                       builder: (context, controller, _) {
                     return ElevatedButton(
-                      onPressed: (controller.checkTerms ?? false)
-                          ? () {
-                              requestAccessController.requestAccess(context);
-                            }
-                          : null,
+                      onPressed: () {
+                        // Chama o método usando o controller fornecido pelo Provider
+                        controller.requestAccess(context);
+                      },
                       child: const Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [

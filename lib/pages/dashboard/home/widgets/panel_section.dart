@@ -10,18 +10,84 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:skeletonizer/skeletonizer.dart';
-import 'package:url_launcher/url_launcher.dart'; // <-- IMPORTANTE: Importamos o abridor de links
+import 'package:url_launcher/url_launcher.dart';
 
-class PanelSection extends StatelessWidget {
+class PanelSection extends StatefulWidget {
   final Either<Error, DashboardData>? panel;
 
   const PanelSection({super.key, this.panel});
 
   @override
+  State<PanelSection> createState() => _PanelSectionState();
+}
+
+class _PanelSectionState extends State<PanelSection> {
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Exibe o popup após a construção da tela
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _showModalOficina();
+    });
+  }
+
+  // POPUP DA OFICINA
+  void _showModalOficina() {
+    if (!mounted) return;
+
+    showDialog(
+      context: context,
+      barrierDismissible: true,
+      barrierColor: Colors.black.withValues(alpha: 0.75),
+      builder: (dialogContext) {
+        return Dialog(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          insetPadding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Stack(
+            alignment: Alignment.topRight,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Image.asset(
+                  'assets/images/modal_oficina.png',
+                  fit: BoxFit.contain,
+                  width: double.infinity,
+                ),
+              ),
+
+              // Botão fechar
+              Positioned(
+                top: 8,
+                right: 8,
+                child: IconButton(
+                  onPressed: () {
+                    Navigator.of(dialogContext).pop();
+                  },
+                  icon: const Icon(
+                    Icons.close,
+                    color: Colors.white,
+                    size: 28,
+                  ),
+                  style: IconButton.styleFrom(
+                    backgroundColor: Colors.black54,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  @override
   Widget build(BuildContext context) {
     const title = "Panel de bordo";
 
-    if (panel == null) {
+    if (widget.panel == null) {
       return _section(
         loading: true,
         title: title,
@@ -31,14 +97,13 @@ class PanelSection extends StatelessWidget {
       );
     }
 
-    return panel!.fold(
+    return widget.panel!.fold(
       (error) {
         return Container(
           margin: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Adicionado aqui também para o caso de a API dar erro, o botão do PDF continuar visível no topo
               _buildReformaTributariaButton(),
               const SizedBox(height: 15),
               const BasicTitle(
@@ -62,13 +127,18 @@ class PanelSection extends StatelessWidget {
     );
   }
 
-  // FUNÇÃO AUXILIAR: Cria o botão estilizado do PDF
+  // BOTÃO DA REFORMA TRIBUTÁRIA
   Widget _buildReformaTributariaButton() {
-    final Uri url = Uri.parse('https://portal.cocatrel.com.br/pc/reformaTributariaExpocafe.pdf');
+    final Uri url = Uri.parse(
+      'https://portal.cocatrel.com.br/pc/reformaTributariaExpocafe.pdf',
+    );
 
     return GestureDetector(
       onTap: () async {
-        if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
+        if (!await launchUrl(
+          url,
+          mode: LaunchMode.externalApplication,
+        )) {
           throw Exception('Não foi possível abrir o link $url');
         }
       },
@@ -76,7 +146,7 @@ class PanelSection extends StatelessWidget {
         width: double.infinity,
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: const Color(0xFFD32F2F), // Vermelho elegante para destacar o PDF / Reforma
+          color: const Color(0xFFD32F2F),
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
@@ -116,6 +186,7 @@ class PanelSection extends StatelessWidget {
     );
   }
 
+  // SEÇÃO PRINCIPAL DO PAINEL
   Widget _section({
     required String title,
     required String year,
@@ -136,11 +207,12 @@ class PanelSection extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // NOVO ITEM: O botão fica estrategicamente posicionado no topo da seção
             _buildReformaTributariaButton(),
-            const SizedBox(height: 20), // Espaçamento entre o botão e o título abaixo
-            
+
+            const SizedBox(height: 20),
+
             const BasicTitle(text: "Painel de bordo"),
+
             BasicCard(
               fullWidth: true,
               customTitle: Row(
@@ -165,7 +237,7 @@ class PanelSection extends StatelessWidget {
                         fontWeight: FontWeight.w700,
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
               title: '',

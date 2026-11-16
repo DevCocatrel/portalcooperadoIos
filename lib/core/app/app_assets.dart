@@ -28,5 +28,6 @@ class AppAssets {
   static const arrowDropDown = "$_basePathVectors/arrow_drop_down.svg";
 
   static const modal = "$_basePath/modal.png";
+  static const modalOficina = "$_basePath/modal_oficina.png";
   static const modalWithLink = "$_basePath/modal_with_link.jpeg";
 }

@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:cocatrel/core/app/app.dart';
 import 'package:cocatrel/core/app/app_colors.dart';
 import 'package:cocatrel/core/app/app_controller.dart';
@@ -12,11 +13,21 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:provider/provider.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
 
+void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+  // Sobrescreve a validação de certificado SSL para todas as requisições do app
+  HttpOverrides.global = MyHttpOverrides();
 
   final authProvider = AuthProvider();
   await Future.wait([
